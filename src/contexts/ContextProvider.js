@@ -8,7 +8,7 @@ export const ContextProvider = ({ children }) => {
 
   return (
     // this value property sends the required state values to other components
-    <StateContext.Provider value={{ activeMenu }}>
+    <StateContext.Provider value={{ activeMenu, setActiveMenu }}>
       {children}
     </StateContext.Provider>
   );
