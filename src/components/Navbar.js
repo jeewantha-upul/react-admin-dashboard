@@ -11,6 +11,7 @@ import avatar from "../data/avatar.jpg";
 import { Cart, Chat, Notification, UserProfile } from ".";
 
 import { useStateContext } from "../contexts/ContextProvider";
+import { ViewsDirective } from "@syncfusion/ej2-react-schedule";
 
 // relate to a single component in Navbar
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
@@ -41,6 +42,28 @@ const Navbar = () => {
     setScreenSize,
     screenSize,
   } = useStateContext();
+
+  // ------------------------------------------------------------------------------------------------------------------------------  relavant to responsiveness
+  // we track the width of the screen and set current screen size to the state when page loads firstly
+  useEffect(() => {
+    const handleResize = () => setScreenSize(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+    //  event listener have to be remove when component unmounts
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // at mobile ViewsDirective, the sidebar is not shown at
+  useEffect(() => {
+    if (screenSize <= 900) {
+      setActiveMenu(false);
+    } else {
+      setActiveMenu(true);
+    }
+  }, [screenSize]);
+  // ------------------------------------------------------------------------------------------------------------------------------  relavant to responsiveness - ends
 
   return (
     <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative">

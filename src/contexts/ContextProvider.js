@@ -14,6 +14,8 @@ export const ContextProvider = ({ children }) => {
   //all states are mentioned here
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
+  // to get the current screenSize
+  const [screenSize, setScreenSize] = useState(undefined);
 
   // to check the clicked component in the navbar
   const handleClick = (clicked) =>
@@ -28,6 +30,8 @@ export const ContextProvider = ({ children }) => {
         isClicked,
         setIsClicked,
         handleClick,
+        screenSize,
+        setScreenSize,
       }}
     >
       {children}
