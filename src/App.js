@@ -27,10 +27,18 @@ import {
 import { useStateContext } from "./contexts/ContextProvider";
 
 function App() {
-  const { activeMenu } = useStateContext();
+  const {
+    setCurrentColor,
+    setCurrentMode,
+    currentMode,
+    activeMenu,
+    currentColor,
+    themeSettings,
+    setThemeSettings,
+  } = useStateContext();
 
   return (
-    <div>
+    <div className={currentMode === "Dark" ? "dark" : ""}>
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
           {/* -------------------------- right bottom setting icon starts */}
@@ -38,7 +46,8 @@ function App() {
             <TooltipComponent content="Settings" position="Top">
               <button
                 type="button"
-                style={{ background: "blue", borderRadius: "50%" }}
+                style={{ background: currentColor, borderRadius: "50%" }}
+                onClick={() => setThemeSettings(true)}
                 className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
               >
                 <FiSettings />
@@ -72,7 +81,8 @@ function App() {
 
             {/* ------  Routing part */}
             <div>
-              {/* {themeSettings && <ThemeSettings />} */}
+              {/* theming options */}
+              {themeSettings && <ThemeSettings />}
 
               <Routes>
                 {/* dashboard  */}

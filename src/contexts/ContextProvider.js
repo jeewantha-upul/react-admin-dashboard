@@ -17,6 +17,22 @@ export const ContextProvider = ({ children }) => {
   // to get the current screenSize
   const [screenSize, setScreenSize] = useState(undefined);
 
+  // relate to theming - start
+  const [currentColor, setCurrentColor] = useState("#03C9D7");
+  const [currentMode, setCurrentMode] = useState("Light");
+  const [themeSettings, setThemeSettings] = useState(false);
+  const setMode = (e) => {
+    setCurrentMode(e.target.value);
+    localStorage.setItem("themeMode", e.target.value);
+    setThemeSettings(false);
+  };
+  const setColor = (color) => {
+    setCurrentColor(color);
+    localStorage.setItem("colorMode", color);
+    setThemeSettings(false);
+  };
+  // relate to theming - end
+
   // to check the clicked component in the navbar
   const handleClick = (clicked) =>
     setIsClicked({ ...initialState, [clicked]: true });
@@ -25,13 +41,22 @@ export const ContextProvider = ({ children }) => {
     // this value property sends the required state values to other components
     <StateContext.Provider
       value={{
+        currentColor,
+        currentMode,
         activeMenu,
-        setActiveMenu,
-        isClicked,
-        setIsClicked,
-        handleClick,
         screenSize,
         setScreenSize,
+        handleClick,
+        isClicked,
+        initialState,
+        setIsClicked,
+        setActiveMenu,
+        setCurrentColor,
+        setCurrentMode,
+        setMode,
+        setColor,
+        themeSettings,
+        setThemeSettings,
       }}
     >
       {children}
